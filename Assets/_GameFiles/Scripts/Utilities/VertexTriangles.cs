@@ -25,7 +25,7 @@ namespace _GameFiles.Scripts.Utilities
             }
         }
 
-        public void RangedVertexTriangles(Vector3 lastMousePos)
+        public void RangedVertexTriangles(Vector3 lastMousePos, Camera cam)
         {
             Vertices.AddRange(new Vector3[4]);
             Triangles.AddRange(new int[30]);
@@ -40,7 +40,7 @@ namespace _GameFiles.Scripts.Utilities
             int vIndex6 = vIndex + 6;
             int vIndex7 = vIndex + 7;
 
-            Vector3 currentMousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
+            Vector3 currentMousePos = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
             Vector3 mouseForward = (currentMousePos - lastMousePos).normalized;
 
             float lineThickness = .25f;

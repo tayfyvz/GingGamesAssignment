@@ -17,17 +17,19 @@ namespace _GameFiles.Scripts.Utilities
             Mesh.vertices = VertexTriangles.Vertices.ToArray();
             Mesh.triangles = VertexTriangles.Triangles.ToArray();
             
+            Material material = go.GetComponent<Renderer>().material;
             go.GetComponent<MeshFilter>().mesh = Mesh;
-            go.GetComponent<Renderer>().material.color = Color.green;
+            material.shader = Shader.Find("Universal Render Pipeline/Unlit");
+            material.color = new Color(.1f,.1f,.1f);
         }
 
-        public static Vector3 AddRangeMesh(Vector3 lastMousePos)
+        public static Vector3 AddRangeMesh(Vector3 lastMousePos, Camera cam)
         {
-            VertexTriangles.RangedVertexTriangles(lastMousePos);
+            VertexTriangles.RangedVertexTriangles(lastMousePos, cam);
             Mesh.vertices = VertexTriangles.Vertices.ToArray();
             Mesh.triangles = VertexTriangles.Triangles.ToArray();
 
-            lastMousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
+            lastMousePos = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
             
             return lastMousePos;
         }
