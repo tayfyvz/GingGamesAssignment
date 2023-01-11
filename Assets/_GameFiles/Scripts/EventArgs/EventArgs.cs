@@ -6,4 +6,14 @@ namespace TadPoleFramework
     {
         
     }
+
+    public class StartDrawEventArgs : BaseEventArgs
+    {
+        
+    }
+
+    public class EndDrawEventArgs : BaseEventArgs
+    {
+        
+    }
 }

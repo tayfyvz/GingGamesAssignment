@@ -1,13 +1,18 @@
-using System.Collections.Generic;
 using System.ComponentModel;
+using _GameFiles.Scripts.Managers.DrawChute;
 using TadPoleFramework;
 using TadPoleFramework.Core;
 using UnityEngine;
-namespace TadPoleFramework
+using UnityEngine.SceneManagement;
+
+namespace _GameFiles.Scripts.Managers
 {
     public class LevelManager : BaseManager
     {
+        [SerializeField] private DrawChuteLevelManager drawChuteLevelManager;
+        [SerializeField] private BalloonTowerLevelManager balloonTowerLevelManager;
         private GameModel _gameModel;
+        
         public override void Receive(BaseEventArgs baseEventArgs)
         {
             switch (baseEventArgs)
@@ -16,9 +21,29 @@ namespace TadPoleFramework
             }
         }
 
+        protected override void Awake()
+        {
+            base.Awake();
+            IMediator mediator = new BaseMediator();
+            if (_gameModel.Level == 1)
+            {
+                drawChuteLevelManager.InjectMediator(mediator);
+                drawChuteLevelManager.InjectManager(this);
+                drawChuteLevelManager.gameObject.SetActive(true);
+            }
+            else
+            { 
+                balloonTowerLevelManager.InjectMediator(mediator); 
+                balloonTowerLevelManager.InjectManager(this);
+                balloonTowerLevelManager.gameObject.SetActive(true);
+            }
+            
+            BroadcastDownward(new SceneStartedEventArgs());
+        }
+
         protected override void Start()
         {
-
+            
         }
         public void InjectModel(GameModel gameModel)
         {
@@ -29,7 +54,7 @@ namespace TadPoleFramework
         {
             if (e.PropertyName == nameof(_gameModel.Level))
             {
-                
+                SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
             }
         }
     }
