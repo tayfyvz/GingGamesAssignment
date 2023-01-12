@@ -14,15 +14,10 @@ namespace _GameFiles.Scripts.Controllers.DrawChute
         private GameObject _drawing;
         private Coroutine _drawCoroutine;
 
-        private bool IsDrawArea
-        {
-            get
-            {
-                return drawingArea.bounds.Contains(
-                    cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 11)));
-            }
-            
-        }
+        private bool IsDrawArea =>
+            drawingArea.bounds.Contains(
+                cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 11)));
+
         private bool _isStarted;
         public void DrawEnabled()
         {
@@ -52,18 +47,20 @@ namespace _GameFiles.Scripts.Controllers.DrawChute
             
             Mesh mesh = _drawing.GetComponent<MeshFilter>().mesh;
 
-            Mesh chuteMesh = new Mesh();
-            chuteMesh.vertices = mesh.vertices;
-            chuteMesh.triangles = mesh.triangles;
-            chuteMesh.normals = mesh.normals;
+            Mesh chuteMesh = new Mesh
+            {
+                vertices = mesh.vertices,
+                triangles = mesh.triangles,
+                normals = mesh.normals
+            };
 
             chute.GetComponent<MeshFilter>().mesh = chuteMesh;
             chute.GetComponent<MeshFilter>().sharedMesh = chuteMesh;
             
-            Bounds carBounds = chute.GetComponent<MeshFilter>().mesh.bounds;
-            Vector3 whereYouWantMe = new Vector3(0,0,25);
-            Vector3 offset = chute.transform.position - chute.transform.TransformPoint(carBounds.center);
-            chute.transform.position = whereYouWantMe + offset;
+            Bounds chuteBounds = chute.GetComponent<MeshFilter>().mesh.bounds;
+            Vector3 middlePoint = new Vector3(0,0,25);
+            Vector3 offset = chute.transform.position - chute.transform.TransformPoint(chuteBounds.center);
+            chute.transform.position = middlePoint + offset;
             Destroy(_drawing);
         }
 

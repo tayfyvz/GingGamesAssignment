@@ -4,27 +4,27 @@ namespace _GameFiles.Scripts.Controllers.BalloonTower
 {
     public class RopeCollider : MonoBehaviour
     {
-        LineRenderer _rope;
-        EdgeCollider2D _edgeCollider;
-        Vector3 _points;
-        Vector2[] _points2;
+        private LineRenderer _lineRenderer;
+        private EdgeCollider2D _edgeCollider2D;
+        private Vector3 _ropePoints;
+        private Vector2[] _edgeColliderPoints;
         private void Start()
         {
-            _edgeCollider = this.gameObject.AddComponent<EdgeCollider2D>();
-            _rope = this.gameObject.GetComponent<LineRenderer>();
-            _points2 = new Vector2[_rope.positionCount];
+            _edgeCollider2D = this.gameObject.AddComponent<EdgeCollider2D>();
+            _lineRenderer = this.gameObject.GetComponent<LineRenderer>();
+            _edgeColliderPoints = new Vector2[_lineRenderer.positionCount];
         }
         private void Update()
         {
             GetNewPositions();
-            _edgeCollider.points = _points2;
+            _edgeCollider2D.points = _edgeColliderPoints;
         }
         void GetNewPositions()
         {
-            for (int i = 0; i < _rope.positionCount; i++)
+            for (int i = 0; i < _lineRenderer.positionCount; i++)
             {
-                _points = _rope.GetPosition(i);
-                _points2[i] = new Vector2(_points.x, _points.y);
+                _ropePoints = _lineRenderer.GetPosition(i);
+                _edgeColliderPoints[i] = new Vector2(_ropePoints.x, _ropePoints.y);
             }
         }
     }

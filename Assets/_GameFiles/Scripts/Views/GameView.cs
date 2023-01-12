@@ -1,6 +1,4 @@
-using TadPoleFramework;
 using TadPoleFramework.UI;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,8 +16,7 @@ namespace TadPoleFramework
         protected override void Initialize()
         {
             balloonTowerButton.onClick.AddListener((_presenter as GameViewPresenter).OnBalloonTowerButtonClicked);
-            balloonTowerButton.onClick.AddListener((_presenter as GameViewPresenter).OnAddBalloonButtonClicked);
-
+            addBalloonButton.onClick.AddListener((_presenter as GameViewPresenter).OnAddBalloonButtonClicked);
             
             drawChuteButton.onClick.AddListener((_presenter as GameViewPresenter).OnDrawChuteButtonClicked);
         }
@@ -28,11 +25,13 @@ namespace TadPoleFramework
         {
             balloonTowerButton.gameObject.SetActive(true);
             drawChuteButton.gameObject.SetActive(false);
+            addBalloonButton.gameObject.SetActive(false);
         }
 
         public void EnableDrawChuteButton()
         {
             drawChuteButton.gameObject.SetActive(true);
+            addBalloonButton.gameObject.SetActive(true);
             balloonTowerButton.gameObject.SetActive(false);
         }
     }

@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using _GameFiles.Scripts.Managers.BalloonTower;
 using _GameFiles.Scripts.Managers.DrawChute;
+using _GameFiles.Scripts.Models;
 using TadPoleFramework;
 using TadPoleFramework.Core;
 using UnityEngine;
@@ -27,18 +28,22 @@ namespace _GameFiles.Scripts.Managers
         protected override void Awake()
         {
             base.Awake();
+            
             IMediator mediator = new BaseMediator();
+            
             if (_gameModel.Level == 1)
             {
                 drawChuteLevelManager.InjectMediator(mediator);
                 drawChuteLevelManager.InjectManager(this);
                 drawChuteLevelManager.gameObject.SetActive(true);
+                balloonTowerLevelManager.gameObject.SetActive(false);
             }
             else
             { 
                 balloonTowerLevelManager.InjectMediator(mediator); 
                 balloonTowerLevelManager.InjectManager(this);
                 balloonTowerLevelManager.gameObject.SetActive(true);
+                drawChuteLevelManager.gameObject.SetActive(false);
             }
         }
 

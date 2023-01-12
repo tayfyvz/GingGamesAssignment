@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using _GameFiles.Scripts.Models;
 using TadPoleFramework;
 using TadPoleFramework.Core;
 using TadPoleFramework.UI;

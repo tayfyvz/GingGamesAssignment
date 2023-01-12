@@ -7,13 +7,13 @@ namespace _GameFiles.Scripts.Controllers.BalloonTower
     public class RopeController : MonoBehaviour
     { 
         [Header("Holders")]
-        [SerializeField] private Transform holdingHand; 
-        [SerializeField] private Transform balloon;
+        public Transform holdingHand; 
+        public BalloonController balloon;
         
         [Header("Rope Settings")]
-        [SerializeField] private float ropePointDistance = 0.25f; 
-        [SerializeField] private int ropePointAmount = 35; 
-        [SerializeField] private float ropeLineWidth = 0.1f;
+        [SerializeField] private float ropePointDistance; 
+        [SerializeField] private int ropePointAmount; 
+        [SerializeField] private float ropeLineWidth;
         
         private LineRenderer _lineRenderer; 
         private List<RopePoint> _ropePoints = new List<RopePoint>(); 
@@ -32,7 +32,7 @@ namespace _GameFiles.Scripts.Controllers.BalloonTower
         }
         void Update()
         {
-            DrawRope();
+            CreateRope();
         }
 
         private void FixedUpdate()
@@ -47,16 +47,19 @@ namespace _GameFiles.Scripts.Controllers.BalloonTower
             for (int i = 1; i < ropePointAmount; i++)
             {
                 RopePoint firstPoint = _ropePoints[i];
+                
                 Vector3 velocity = firstPoint.PosCurrent - firstPoint.PosOld;
+                
                 firstPoint.PosOld = firstPoint.PosCurrent;
                 firstPoint.PosCurrent += velocity;
                 firstPoint.PosCurrent += gravity * Time.fixedDeltaTime;
+                
                 _ropePoints[i] = firstPoint;
             }
 
             for (int i = 0; i < 50; i++)
             {
-                this.ApplyConstraint();
+                ApplyConstraint();
             }
         }
 
@@ -68,48 +71,50 @@ namespace _GameFiles.Scripts.Controllers.BalloonTower
 
 
             RopePoint balloonPoint = _ropePoints[_ropePoints.Count - 1];
-            balloonPoint.PosCurrent = balloon.position;
+            balloonPoint.PosCurrent = balloon.transform.position;
             _ropePoints[_ropePoints.Count - 1] = balloonPoint;
 
             for (int i = 0; i < ropePointAmount - 1; i++)
             {
-                RopePoint firstSeg = _ropePoints[i];
-                RopePoint secondSeg = _ropePoints[i + 1];
+                RopePoint firstRopePoint = _ropePoints[i];
+                RopePoint secondRopePoint = _ropePoints[i + 1];
 
-                float dist = (firstSeg.PosCurrent - secondSeg.PosCurrent).magnitude;
-                float error = Mathf.Abs(dist - ropePointDistance);
-                Vector3 changeDir = Vector3.zero;
+                float distance = (firstRopePoint.PosCurrent - secondRopePoint.PosCurrent).magnitude;
+                float errorDistance = Mathf.Abs(distance - ropePointDistance);
+                
+                Vector3 changeDirection = Vector3.zero;
 
-                if (dist > ropePointDistance)
+                if (distance > ropePointDistance)
                 {
-                    changeDir = (firstSeg.PosCurrent - secondSeg.PosCurrent).normalized;
+                    changeDirection = (firstRopePoint.PosCurrent - secondRopePoint.PosCurrent).normalized;
                 }
-                else if (dist < ropePointDistance)
+                else if (distance < ropePointDistance)
                 {
-                    changeDir = (secondSeg.PosCurrent - firstSeg.PosCurrent).normalized;
+                    changeDirection = (secondRopePoint.PosCurrent - firstRopePoint.PosCurrent).normalized;
                 }
 
-                Vector3 changeAmount = changeDir * error;
+                Vector3 changeAmount = changeDirection * errorDistance;
+                
                 if (i != 0)
                 {
-                    firstSeg.PosCurrent -= changeAmount * 0.5f;
-                    _ropePoints[i] = firstSeg;
-                    secondSeg.PosCurrent += changeAmount * 0.5f;
-                    _ropePoints[i + 1] = secondSeg;
+                    firstRopePoint.PosCurrent -= changeAmount * 0.5f;
+                    _ropePoints[i] = firstRopePoint;
+                    
+                    secondRopePoint.PosCurrent += changeAmount * 0.5f;
+                    _ropePoints[i + 1] = secondRopePoint;
                 }
                 else
                 {
-                    secondSeg.PosCurrent += changeAmount;
-                    _ropePoints[i + 1] = secondSeg;
+                    secondRopePoint.PosCurrent += changeAmount;
+                    _ropePoints[i + 1] = secondRopePoint;
                 }
             }
         }
 
-        private void DrawRope()
+        private void CreateRope()
         {
-            float lineWidth = ropeLineWidth;
-            _lineRenderer.startWidth = lineWidth;
-            _lineRenderer.endWidth = lineWidth;
+            _lineRenderer.startWidth = ropeLineWidth;
+            _lineRenderer.endWidth = ropeLineWidth;
 
             Vector3[] ropePositions = new Vector3[ropePointAmount];
             for (int i = 0; i < ropePointAmount; i++)

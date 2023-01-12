@@ -1,7 +1,7 @@
 using TadPoleFramework.Game;
 using UnityEngine;
 
-namespace TadPoleFramework
+namespace _GameFiles.Scripts.Models
 {
     public class GameModel : BaseGameModel
     {

@@ -1,8 +1,6 @@
-using System.Collections;
 using TadPoleFramework.Core;
 using TadPoleFramework.UI;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace TadPoleFramework
 {
@@ -13,10 +11,10 @@ namespace TadPoleFramework
             switch (baseEventArgs)
             {
                 case DrawChuteLevelUIEventArgs drawChuteLevelUIEventArgs:
-                    (view as GameView).EnableBalloonTowerButton();
+                    (view as GameView)?.EnableBalloonTowerButton();
                     break;
                 case BalloonTowerLevelUIEventArgs balloonTowerLevelUIEventArgs:
-                    (view as GameView).EnableDrawChuteButton();
+                    (view as GameView)?.EnableDrawChuteButton();
                     break;
             }
         }
@@ -34,6 +32,7 @@ namespace TadPoleFramework
         public void OnAddBalloonButtonClicked()
         {
             BroadcastUpward(new AddBalloonButtonClickedEventArgs());
+            Debug.Log("gvp");
         }
     }
 }

@@ -1,8 +1,9 @@
 using TadPoleFramework.App;
 using TadPoleFramework.Core;
+
 // using ElephantSDK;
 // using GameAnalyticsSDK;
-namespace TadPoleFramework
+namespace _GameFiles.Scripts.Managers._HighLevelManagers
 {
     public class AppManager : BaseAppManager
     {

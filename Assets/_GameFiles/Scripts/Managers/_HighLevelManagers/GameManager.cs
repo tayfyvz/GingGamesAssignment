@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using _GameFiles.Scripts.Managers;
+using _GameFiles.Scripts.Models;
 using TadPoleFramework.Core;
 using TadPoleFramework.Game;
 using UnityEngine;
@@ -32,13 +33,7 @@ namespace TadPoleFramework
             levelManager.InjectManager(this);
             levelManager.InjectModel(_gameModel);
         }
-
-        protected override void Start()
-        {
-            base.Start();
-            /*levelManager.InjectModel(gameModel);*/
-        }
-
+        
         public void InjectModel(GameModel gameModel)
         {
             this._gameModel = gameModel;
