@@ -15,7 +15,12 @@ namespace TadPoleFramework
         {
             switch (baseEventArgs)
             {
-                
+                case SceneStartedEventArgs sceneStartedEventArgs:
+                    Broadcast(sceneStartedEventArgs);
+                    break;
+                case AddBalloonButtonClickedEventArgs addBalloonButtonClickedEventArgs:
+                    BroadcastDownward(addBalloonButtonClickedEventArgs);
+                    break;
             }
         }
 

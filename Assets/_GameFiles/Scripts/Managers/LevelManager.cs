@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using _GameFiles.Scripts.Managers.BalloonTower;
 using _GameFiles.Scripts.Managers.DrawChute;
 using TadPoleFramework;
 using TadPoleFramework.Core;
@@ -17,7 +18,9 @@ namespace _GameFiles.Scripts.Managers
         {
             switch (baseEventArgs)
             {
-                
+                case AddBalloonButtonClickedEventArgs addBalloonButtonClickedEventArgs:
+                    BroadcastDownward(addBalloonButtonClickedEventArgs);
+                    break;
             }
         }
 
@@ -37,13 +40,12 @@ namespace _GameFiles.Scripts.Managers
                 balloonTowerLevelManager.InjectManager(this);
                 balloonTowerLevelManager.gameObject.SetActive(true);
             }
-            
-            BroadcastDownward(new SceneStartedEventArgs());
         }
 
         protected override void Start()
         {
-            
+            BroadcastDownward(new SceneStartedEventArgs());
+            BroadcastUpward(new SceneStartedEventArgs());
         }
         public void InjectModel(GameModel gameModel)
         {

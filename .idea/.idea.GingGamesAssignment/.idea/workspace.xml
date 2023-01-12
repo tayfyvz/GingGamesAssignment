@@ -11,6 +11,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/_GameFiles/Scripts/Controllers/BalloonTower/RopeController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_GameFiles/Scripts/Controllers/DrawChute/DrawingController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_GameFiles/Scripts/Utilities/CreateGameObject.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -75,7 +76,8 @@
       <option name="presentableId" value="Default" />
       <updated>1673352599430</updated>
       <workItem from="1673352618841" duration="2590000" />
-      <workItem from="1673429421561" duration="17494000" />
+      <workItem from="1673429421561" duration="18297000" />
+      <workItem from="1673472511830" duration="9048000" />
     </task>
     <servers />
   </component>

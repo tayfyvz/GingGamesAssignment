@@ -11,7 +11,7 @@ namespace _GameFiles.Scripts.Controllers.DrawChute
         [SerializeField] private Camera cam;
         [SerializeField] private GameObject chute;
 
-        private GameObject drawing;
+        private GameObject _drawing;
         private Coroutine _drawCoroutine;
 
         private bool IsDrawArea
@@ -48,9 +48,9 @@ namespace _GameFiles.Scripts.Controllers.DrawChute
             }
             
             CreateDraw();
-            CalculateNormals.Calculate(drawing);
+            CalculateNormals.Calculate(_drawing);
             
-            Mesh mesh = drawing.GetComponent<MeshFilter>().mesh;
+            Mesh mesh = _drawing.GetComponent<MeshFilter>().mesh;
 
             Mesh chuteMesh = new Mesh();
             chuteMesh.vertices = mesh.vertices;
@@ -64,15 +64,15 @@ namespace _GameFiles.Scripts.Controllers.DrawChute
             Vector3 whereYouWantMe = new Vector3(0,0,25);
             Vector3 offset = chute.transform.position - chute.transform.TransformPoint(carBounds.center);
             chute.transform.position = whereYouWantMe + offset;
-            Destroy(drawing);
+            Destroy(_drawing);
         }
 
         private IEnumerator Draw()
         {
             _isStarted = true;
-            drawing = CreateGameObject.Create("drawing");
+            _drawing = CreateGameObject.Create("drawing");
             Vector3 startPos = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
-            AddMeshToGameObject.AddMesh(drawing, startPos);
+            AddMeshToGameObject.AddMesh(_drawing, startPos);
 
             Vector3 lastMousePos = startPos;
             
@@ -98,7 +98,7 @@ namespace _GameFiles.Scripts.Controllers.DrawChute
 
         private void CreateDraw()
         {
-            Mesh mesh = drawing.GetComponent<MeshFilter>().mesh;
+            Mesh mesh = _drawing.GetComponent<MeshFilter>().mesh;
             Vector3[] vertices = mesh.vertices;
 
             for (int i = 1; i < vertices.Length; i++)

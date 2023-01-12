@@ -13,9 +13,6 @@ namespace _GameFiles.Scripts.Managers.DrawChute
         {
             switch (baseEventArgs)
             {
-                case SceneStartedEventArgs sceneStartedEventArgs:
-                    
-                    break;
                 case StartDrawEventArgs startDrawEventArgs:
                     drawingController.DrawEnabled();
                     break;

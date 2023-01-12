@@ -12,8 +12,28 @@ namespace TadPoleFramework
         {
             switch (baseEventArgs)
             {
-
+                case DrawChuteLevelUIEventArgs drawChuteLevelUIEventArgs:
+                    (view as GameView).EnableBalloonTowerButton();
+                    break;
+                case BalloonTowerLevelUIEventArgs balloonTowerLevelUIEventArgs:
+                    (view as GameView).EnableDrawChuteButton();
+                    break;
             }
+        }
+
+        public void OnBalloonTowerButtonClicked()
+        {
+            BroadcastUpward(new BalloonTowerButtonClickedEventArgs());
+        }
+
+        public void OnDrawChuteButtonClicked()
+        {
+            BroadcastUpward(new DrawChuteButtonClickedEventArgs());
+        }
+
+        public void OnAddBalloonButtonClicked()
+        {
+            BroadcastUpward(new AddBalloonButtonClickedEventArgs());
         }
     }
 }
